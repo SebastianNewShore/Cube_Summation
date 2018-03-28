@@ -12,6 +12,7 @@ public class ProcessFile
 {
     Queries QueryProcess = new Queries();
     ValidatorBusiness Validator = new ValidatorBusiness();
+    RuleCases Rule = new RuleCases();
 
     public DataTable DataDistribution(DataTable dtFile, out string errorMessage)
     {
@@ -23,7 +24,8 @@ public class ProcessFile
         try
         {
             var cases = dtFile.Rows[0]["TestCase"].ToString().Split(' ');
-            if (cases != null && cases.ToList().Count == 1 && int.Parse(cases[0].ToString()) <= RestrictionConstants.testCases)
+            var prueba = Rule.ValidateTestCase(cases);
+            if (Rule.ValidateTestCase(cases))
             {
                 var countCases = int.Parse(dtFile.Rows[0]["TestCase"].ToString());
                 List<string>[] arrayMatriz = new List<string>[countCases];
@@ -32,8 +34,7 @@ public class ProcessFile
                 {
                     var matriz = dtFile.Rows[i]["TestCase"].ToString().Split(' ');
 
-                    if (matriz != null && matriz.ToList().Count == 2 && int.Parse(matriz[0].ToString()) > 0 && int.Parse(matriz[0].ToString()) <= RestrictionConstants.Matriz &&
-                        int.Parse(matriz[1].ToString()) > 0 && int.Parse(matriz[1].ToString()) <= RestrictionConstants.Operations)
+                    if (Rule.ValidateMatriz(matriz))
                     {
                         arrayMatriz[count] = new List<string>();
                         for (var j = i; j <= int.Parse(matriz[1].ToString()) + i; j++)
@@ -42,10 +43,6 @@ public class ProcessFile
                         }
                         i = i + int.Parse(matriz[1].ToString()) - 1;
                         count++;
-                    }
-                    else
-                    {
-                        errorMessage = RestrictionConstants.ErrorArrayOrOperation;
                     }
                 }
                 dtResponse = MatrixCreation(arrayMatriz, out errorMessage);

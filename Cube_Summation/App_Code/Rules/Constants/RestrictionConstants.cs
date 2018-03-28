@@ -17,7 +17,7 @@ public static class RestrictionConstants
     public const string ErrorUpdatingQuery = "an error occurred while trying to update the array";
     public const string ErrorQuery = "an error occurred while trying to process the sum";
     public const string UrecognizedQuery = "Invalid query, check testcase number";
-    public const string GenericError = "I'm sorry there was an error processing the data";
+    public const string GenericError = "I am sorry there was an error processing the data";
     public const string ErrorTestCase = "verify the format or number of test cases entered";
     public const string ErrorArrayOrOperation = "verify the format of array and operations or their quantity";
     public const string NumberOfFiles = "Can not be attached more than 1 file";

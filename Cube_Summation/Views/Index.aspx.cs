@@ -47,11 +47,12 @@ public partial class View_Index : System.Web.UI.Page
                         {
                             SendClientMessage(RestrictionConstants.FileExist);
                         }
+
                         try
                         {
                             _dtFile = Validator.ConsultRoute(route);
                             Session["_dtFile"] = _dtFile;
-
+                            File.Delete(route);
                             btnResult.Enabled = true;
                             lblResponse.ForeColor = Color.Green;
                             lblResponse.Text = RestrictionConstants.FileUpload;
